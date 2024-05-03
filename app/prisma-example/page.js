@@ -19,7 +19,7 @@ const PrismaExample = async () => {
   const tasks = await prismaHandlers();
   return (
     <div>
-      <h1 className="text-3xl font-medium mb-4">PrismaExample</h1>
+      <h1 className="text-3xl font-medium mb-4">PrismaExampl</h1>
       {tasks.map((task) => {
         return (
           <h2 key={task.id} className="text-xl py-2">
