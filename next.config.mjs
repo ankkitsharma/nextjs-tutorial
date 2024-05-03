@@ -10,6 +10,14 @@ const nextConfig = {
       },
     ],
   },
+  experimental: {
+    serverActions: {
+      allowedOrigins: [
+        "friendly-spoon-7x5xxq9r76whpjq9-3001.app.github.dev",
+        "localhost:3001",
+      ],
+    },
+  },
 };
 
 export default nextConfig;
