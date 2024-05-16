@@ -1,7 +1,9 @@
-'use client';
+"use client";
 
-import { createTaskCustom } from '@/utils/actions';
-import { useFormStatus, useFormState } from 'react-dom';
+import { createTaskCustom } from "@/utils/actions";
+import { useEffect } from "react";
+import { useFormStatus, useFormState } from "react-dom";
+import toast from "react-hot-toast";
 // The useFormStatus Hook provides status information of the last form submission.
 // useFormState is a Hook that allows you to update state based on the result of a form action.
 
@@ -10,11 +12,11 @@ const SubmitButton = () => {
 
   return (
     <button
-      type='submit'
-      className='btn join-item btn-primary'
+      type="submit"
+      className="btn join-item btn-primary"
       disabled={pending}
     >
-      {pending ? 'please wait... ' : 'create task'}
+      {pending ? "please wait... " : "create task"}
     </button>
   );
 };
@@ -26,15 +28,27 @@ const initialState = {
 const TaskForm = () => {
   const [state, formAction] = useFormState(createTaskCustom, initialState);
 
+  useEffect(() => {
+    if (state.message === "error") {
+      toast.error("there was an error");
+      return;
+    }
+
+    if (state.message === "success") {
+      toast.success("task created");
+      return;
+    }
+  }, [state]);
+
   return (
     <form action={formAction}>
-      {state.message ? <p className='mb-2'>{state.message}</p> : null}
-      <div className='join w-full'>
+      {/* {state.message ? <p className="mb-2">{state.message}</p> : null} */}
+      <div className="join w-full">
         <input
-          className='input input-bordered join-item w-full'
-          placeholder='Type Here'
-          type='text'
-          name='content'
+          className="input input-bordered join-item w-full"
+          placeholder="Type Here"
+          type="text"
+          name="content"
           required
         />
         <SubmitButton />
